@@ -416,7 +416,7 @@ services:
         restart: unless-stopped
         network_mode: "bridge"
         ports:
-            - '${IP_ADDRESS}8083:8083'
+          - '${IP_ADDRESS}:8083:8083'
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
