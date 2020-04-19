@@ -406,3 +406,22 @@ services:
             - './plex/Library/Application Support/Plex Media Server/Logs:/logs:ro'
         depends_on:
             - plex
+              
+    # ----------------------------------------
+    # CALIBRE-WEB
+    # ----------------------------------------
+    calibre-web:
+        image: linuxserver/calibre-web
+        container_name: calibre-web
+        restart: unless-stopped
+        network_mode: "bridge"
+        ports:
+            - '${IP_ADDRESS}8083:8083'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - DOCKER_MODS=linuxserver/calibre-web:calibre
+        volumes:
+            - './calibreweb:/config'
+            - '${BOOKSDIR}:/books'

@@ -169,3 +169,11 @@ scale = 1
 icon = "muximux-plexivity"
 color = "#cc7b19"
 enabled = "true"
+
+[Calibre-Web]
+name = "Calibre-Web"
+url = "http://locip:8083"
+scale = 1
+icon = "muximux-plexivity"
+color = "#cc7b19"
+enabled = "true"

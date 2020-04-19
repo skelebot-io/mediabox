@@ -45,12 +45,14 @@ if [ -e 1.env ]; then
     tvdirectory=$(grep TVDIR 1.env | cut -d = -f2)
     moviedirectory=$(grep MOVIEDIR 1.env | cut -d = -f2)
     musicdirectory=$(grep MUSICDIR 1.env | cut -d = -f2)
+    booksdirectory=$(grep BOOKSDIR 1.env | cut -d = -f2)
     # Echo back the media directioies, and other info to see if changes are needed
     printf "These are the Media Directory paths currently configured.\\n"
     printf "Your DOWNLOAD Directory is: %s \\n" "$dldirectory"
     printf "Your TV Directory is: %s \\n" "$tvdirectory"
     printf "Your MOVIE Directory is: %s \\n" "$moviedirectory"
     printf "Your MUSIC Directory is: %s \\n" "$musicdirectory"
+    printf "Your BOOKS Directory is: %s \\n" "$booksdirectory"
     read  -r -p "Are these directiores still correct? (y/n) " diranswer `echo \n`
     read  -r -p "Do you need to change your PIA Credentials? (y/n) " piaanswer `echo \n`
     # Now we need ".env" to exist again so we can stop just the Medaibox containers
@@ -120,12 +122,14 @@ read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/
 read -r -p "Where do you store your TV media? (Please use full path - /path/to/tv ): " tvdirectory
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
+read -r -p "Where do you store your BOOKS media? (Please use full path - /path/to/books ): " booksdirectory
 fi
 if [ "$diranswer" == "n" ]; then
 read -r -p "Where do you store your DOWNLOADS? (Please use full path - /path/to/downloads ): " dldirectory
 read -r -p "Where do you store your TV media? (Please use full path - /path/to/tv ): " tvdirectory
 read -r -p "Where do you store your MOVIE media? (Please use full path - /path/to/movies ): " moviedirectory
 read -r -p "Where do you store your MUSIC media? (Please use full path - /path/to/music ): " musicdirectory
+read -r -p "Where do you store your BOOKS media? (Please use full path - /path/to/books ): " booksdirectory
 fi
 
 # Create the directory structure
@@ -149,7 +153,10 @@ if [ -z "$musicdirectory" ]; then
     mkdir -p content/music
     musicdirectory="$PWD/content/music"
 fi
-
+if [ -z "$booksdirectory" ]; then
+    mkdir -p content/books
+    booksdirectory="$PWD/content/books"
+fi
 # Adjust for Container name changes
 [ -d "sickrage/" ] && mv sickrage/ sickchill  # Switch from Sickrage to SickChill
 
@@ -173,6 +180,7 @@ mkdir -p radarr
 mkdir -p sickchill
 mkdir -p sonarr
 mkdir -p tautulli
+mkdir -p calibreweb
 
 # Create menu - Select and Move the PIA VPN files
 echo "The following PIA Servers are avialable that support port-forwarding (for DelugeVPN); Please select one:"
@@ -233,6 +241,7 @@ echo "PMSTAG=$pmstag"
 echo "PMSTOKEN=$pmstoken"
 echo "PORTAINERSTYLE=$portainerstyle"
 echo "VPN_REMOTE=$vpnremote"
+echo "BOOKSDIR=$booksdirectory"
 } >> .env
 echo ".env file creation complete"
 printf "\\n\\n"
