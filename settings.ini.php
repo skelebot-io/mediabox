@@ -175,5 +175,5 @@ name = "Calibre-Web"
 url = "http://locip:8083"
 scale = 1
 icon = "muximux-book"
-color = "#cc7b19"
+color = "#93c47d"
 enabled = "true"
