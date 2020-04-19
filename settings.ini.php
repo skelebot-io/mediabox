@@ -174,6 +174,6 @@ enabled = "true"
 name = "Calibre-Web"
 url = "http://locip:8083"
 scale = 1
-icon = "muximux-plexivity"
+icon = "muximux-book"
 color = "#cc7b19"
 enabled = "true"
